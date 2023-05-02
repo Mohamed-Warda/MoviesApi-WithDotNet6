@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MoviesApi.Services;
 using MoviesAPI.Models;
 
 namespace MoviesAPI
@@ -16,15 +17,20 @@ namespace MoviesAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
-
+            builder.Services.AddAutoMapper(typeof(Program));
             //Add DbContext injection
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 //get connection string from appsettings
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
             });
 
-            //inject ApplicationDbContext when needed 
+            //inject
+
+            builder.Services.AddTransient<IGenresService, GenresService>();
+            builder.Services.AddTransient<IMoviesService, MoviesService>();
            
 
             //enable cors

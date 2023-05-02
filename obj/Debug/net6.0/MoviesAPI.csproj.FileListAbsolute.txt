@@ -98,3 +98,5 @@ D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\Mov
 D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\MoviesApi-WithDotNet6\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\MoviesApi-WithDotNet6\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\MoviesApi-WithDotNet6\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\MoviesApi-WithDotNet6\bin\Debug\net6.0\AutoMapper.dll
+D:\COARSES\.NET\[Arabic - بالعربي] APIs In .Net 6 (Core) With Example\MoviesApi-WithDotNet6\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
