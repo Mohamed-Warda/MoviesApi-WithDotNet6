@@ -1,8 +1,11 @@
-﻿using AutoMapper;
+﻿using API.Extensions;
+using API.Helpers;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesApi.Services;
+using MoviesAPI.Helpers;
 using MoviesAPI.Models;
 
 namespace MoviesAPI.Controllers
@@ -28,11 +31,15 @@ namespace MoviesAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationParams paginationParams)
         {
-            var movie = await _moviesService.GetAll();
+        
+                var movie = await _moviesService.GetAll(paginationParams);
+
+            
 
             var newData  =_mapper.Map<IEnumerable<MovieDetailsDto>>(movie);
+            Response.AddPaginationHeader( new PaginationHeader(movie.CurrentPage ,movie.PageSize,movie.TotalCount, movie.TotalPages) );
             return Ok(newData);
         }
 
@@ -50,7 +57,7 @@ namespace MoviesAPI.Controllers
         }
 
 
-          [HttpGet("Genre/{id}")]
+    /*      [HttpGet("Genre/{id}")]
         public async Task<IActionResult> GetByGenreID(byte id)
         {
             var movie =  await _moviesService.GetAll(id);
@@ -62,7 +69,7 @@ namespace MoviesAPI.Controllers
             return Ok(newData);
            
         }
-
+    */
 
 
         [HttpDelete("{id:int}")]

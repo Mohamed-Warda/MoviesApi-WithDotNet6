@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using API.Helpers;
+using Microsoft.EntityFrameworkCore;
+using MoviesAPI.Helpers;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MoviesApi.Services
 {
@@ -28,20 +31,43 @@ namespace MoviesApi.Services
             return movie;
         }
 
-        public async Task<IEnumerable<Movie>> GetAll(byte genreId = 0)
+        public async Task<PagedList<Movie>> GetAll(PaginationParams paginationParams)
+
         {
-            return await _context.Movies
-                .Where(m => m.GenreId == genreId || genreId == 0)
-                .OrderByDescending(m => m.Rate)
+         
+               var  quary = _context.Movies
+              .Where(x => x.Genre.Name.ToLower() == paginationParams.genreName || paginationParams.genreName==null)
                 .Include(m => m.Genre)
-                .ToListAsync();
+             .AsNoTracking();
+            
+
+
+
+            if (paginationParams.rate == "descending")
+            {
+             var   newQuary = quary.OrderByDescending(m => m.Rate);
+                return await PagedList<Movie>.CreateAsync(newQuary, paginationParams.PageNumber, paginationParams.PageSize);
+
+
+            }
+
+
+
+            return await PagedList<Movie>.CreateAsync(quary, paginationParams.PageNumber, paginationParams.PageSize);
+
+
         }
 
-       
-        public async Task<Movie> GetById(int id)
+        public Task<Movie> GetById(int id)
         {
-            return await _context.Movies.Include(m => m.Genre).SingleOrDefaultAsync(m => m.Id == id);
+            throw new NotImplementedException();
         }
+
+
+        /*   public async Task<Movie> GetById(int id)
+           {
+               return await _context.Movies.Include(m => m.Genre).SingleOrDefaultAsync(m => m.Id == id);
+           }*/
 
         public Movie Update(Movie movie)
         {
@@ -50,5 +76,7 @@ namespace MoviesApi.Services
 
             return movie;
         }
+
+        
     }
 }
